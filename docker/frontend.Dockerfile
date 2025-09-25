@@ -1,5 +1,5 @@
 # docker/fronend.Dockerfile
-FROM node:20-alpine
+FROM node:20-slim
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ RUN npm ci
 # copy app source
 COPY . /app/
 
-EXPOSE 3000
+EXPOSE 5173
 
 # dev server
 CMD [ "npm", "start"]
