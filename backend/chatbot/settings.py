@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+import dj_database_url
 import os
 from pathlib import Path
 
@@ -46,6 +47,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
+    #...other middleware
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,15 +83,9 @@ WSGI_APPLICATION = 'chatbot.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
-        'PORT': os.environ.get('DATABASE_PORT', 5432),
-    }
+    "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
 }
+
 
 
 # Password validation
@@ -124,6 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
